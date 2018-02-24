@@ -6,6 +6,9 @@ var imagemin = require('gulp-imagemin');
 var pngquant = require('imagemin-pngquant');
 var htmlmin  = require ('gulp-htmlmin');
 var  gls = require ('gulp-live-server');
+var jshint = require('gulp-jshint');
+var stylish = require ('jshint-stylish');
+
 var less = require('gulp-less');
 var lessPluginCleanCss = require('less-plugin-clean-css'),
     cleancss = new lessPluginCleanCss ({ advanced: true });
@@ -74,4 +77,10 @@ gulp.task('less', function() {
         .pipe(concat('styleLess.min.css'))
         .pipe(less())
         .pipe(gulp.dest('assets/css'));
+});
+
+gulp.task('lint', function() {
+    return gulp.src('assets/src/js/*.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('jshint-stylish'));
 });
